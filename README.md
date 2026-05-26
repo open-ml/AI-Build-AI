@@ -50,12 +50,44 @@ On OpenAI [MLE-Bench](https://github.com/openai/mle-bench), AIBuildAI ranked #1,
 
 AIBuildAI requires a **Linux x86_64** machine.
 
+#### Free version
+
 ```bash
 curl -L -O https://github.com/aibuildai/AI-Build-AI/releases/latest/download/aibuildai-linux-x86_64-v0.1.1.tar.gz
 tar -xzf aibuildai-linux-x86_64-v0.1.1.tar.gz
 cd aibuildai-linux-x86_64-v0.1.1
 ./install.sh
 ```
+
+#### Pro version (AIBuildAI 2.0)
+
+The Pro version delivers stronger performance than the Free version (see the [4/27/2026 News](#news) entry).
+
+1. **Register and subscribe.** Create an account at [accounts.aibuildai.io/sign-up](https://accounts.aibuildai.io/sign-up). After signing in, go to the **Billing** section and switch to the **Pro plan** ($50 / month). Once payment is processed, your account will show an active Pro subscription.
+
+2. **Download and install AIBuildAI 2.0.**
+
+   ```bash
+   curl -L -o aibuildai.tar.gz \
+     https://github.com/aibuildai/AI-Build-AI/releases/download/v2.0.0/aibuildai-linux-x86_64-v2.0.0.tar.gz
+   tar -xzf aibuildai.tar.gz
+   cd aibuildai-linux-x86_64-v2.0.0
+   ./install.sh
+   ```
+
+3. **Log in.** After installation, run:
+
+   ```bash
+   aibuildai login
+   ```
+
+   This prints a link you can open in your browser to grant permission with your Pro account. To verify your login status, run:
+
+   ```bash
+   aibuildai whoami
+   ```
+
+   The output should show an active Pro plan.
 
 ### Set up credentials
 
