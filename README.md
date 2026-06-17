@@ -5,7 +5,10 @@
 <p align="center">
   <img src="assets/downloads.svg" alt="Downloads">
   <a href="https://arxiv.org/abs/2604.14455">
-  <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2604.14455-b31b1b.svg">
+  <img alt="AIBuildAI v1 arXiv 2604.14455" src="https://img.shields.io/badge/AIBuildAI%20v1-2604.14455-b31b1b.svg?logo=arxiv&logoColor=white">
+  </a>
+  <a href="https://arxiv.org/abs/2605.27873">
+  <img alt="AIBuildAI v2 arXiv 2605.27873" src="https://img.shields.io/badge/AIBuildAI%20v2-2605.27873-b31b1b.svg?logo=arxiv&logoColor=white">
   </a>
 </p>
 
