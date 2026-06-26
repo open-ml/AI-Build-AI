@@ -16,7 +16,7 @@
 
 ## News
 
-- **[6/17/2026]** The **AIBuildAI Agent 2.5** version is made available to [Pro users](https://www.aibuildai.io/#products): a live build dashboard, run replay, cross-run memory, MCP research tools, and DeepSeek support. [Release notes and download](https://github.com/aibuildai/AI-Build-AI/releases/tag/v2.5.0).
+- **[6/17/2026]** The **AIBuildAI Agent 2.5** version is made available to [Max users](https://www.aibuildai.io/#products): a live build dashboard, run replay, cross-run memory, MCP research tools, and DeepSeek support. [Release notes and download](https://github.com/aibuildai/AI-Build-AI/releases/tag/v2.5.1).
 - **[5/26/2026]** The **AIBuildAI Agent 2.0** version is made available to [Pro users](https://www.aibuildai.io/#products).
 - **[5/1/2026]** In the [TGS Salt Identification Challenge](https://www.kaggle.com/competitions/tgs-salt-identification-challenge) hosted by Kaggle, the model automatically developed by our AIBuildAI Agent ranked in the top 5.7%. Among 3,219 teams composed of human experts, this performance reaches the level of top-tier human AI experts. Model and code developed by the Agent: [tasks/tgs-salt-identification-challenge](https://github.com/aibuildai/AI-Build-AI/tree/main/tasks/tgs-salt-identification-challenge).
 - **[4/27/2026]** Excited to announce **AIBuildAI Agent 2.0**! It has once again achieved #1 on OpenAI's MLE-Bench, reaching a score of 70.7% and substantially outperforming the agents ranked 2nd through 5th. Compared to version 1.0, Agent 2.0 introduces several technical advancements, which we will detail in an upcoming technical report. The 2.0 version will be available to Pro users soon.
@@ -51,83 +51,111 @@ On OpenAI [MLE-Bench](https://github.com/openai/mle-bench), AIBuildAI ranked #1,
 
 ## Quick Start
 
-### Installation
+AIBuildAI requires a **Linux x86_64** machine (Ubuntu 20.04 or newer).
 
-AIBuildAI requires a **Linux x86_64** machine.
+There are three versions. **V2.5 (Max)** is the current, most capable version. **V2 (Pro)** and **V1 (free)** remain available.
 
-#### Free version
+| Version | Plan | To run it |
+|---|---|---|
+| **V2.5 (Max)** — current | Max subscription | `aibuildai login` (Max plan) + an Anthropic API key |
+| **V2 (Pro)** | Pro subscription | `aibuildai login` (Pro plan) + an Anthropic API key |
+| **V1** | free | an Anthropic API key (no account) |
 
-```bash
-curl -L -O https://github.com/aibuildai/AI-Build-AI/releases/latest/download/aibuildai-linux-x86_64-v0.1.1.tar.gz
-tar -xzf aibuildai-linux-x86_64-v0.1.1.tar.gz
-cd aibuildai-linux-x86_64-v0.1.1
-./install.sh
-```
+Subscriptions are managed at [accounts.aibuildai.io](https://accounts.aibuildai.io); see the account page for the available plans.
 
-#### Pro version (AIBuildAI 2.0)
+### V2.5 (Max) — current
 
-The Pro version delivers stronger performance than the Free version (see the [4/27/2026 News](#news) entry).
+1. **Subscribe.** Create an account at [accounts.aibuildai.io/sign-up](https://accounts.aibuildai.io/sign-up) and switch to the **Max** plan.
 
-1. **Register and subscribe.** Create an account at [accounts.aibuildai.io/sign-up](https://accounts.aibuildai.io/sign-up). After signing in, go to the **Billing** section and switch to the **Pro plan** ($50 / month). Once payment is processed, your account will show an active Pro subscription.
-
-2. **Download and install AIBuildAI 2.0.**
+2. **Install.**
 
    ```bash
-   curl -L -o aibuildai.tar.gz \
-     https://github.com/aibuildai/AI-Build-AI/releases/download/v2.0.0/aibuildai-linux-x86_64-v2.0.0.tar.gz
-   tar -xzf aibuildai.tar.gz
-   cd aibuildai-linux-x86_64-v2.0.0
-   ./install.sh
+   curl -fsSL https://github.com/aibuildai/AI-Build-AI/releases/download/v2.5-latest/aibuildai-linux-x86_64.tar.gz | tar xz && ./aibuildai-linux-x86_64-*/install.sh
    ```
 
-3. **Log in.** After installation, run:
+3. **Log in** (required before running):
+
+   ```bash
+   aibuildai login      # opens a browser to sign in
+   aibuildai whoami     # should show an active Max plan
+   ```
+
+4. **Set your Anthropic API key.**
+
+   ```bash
+   export AIBUILDAI_API_KEY=your-api-key
+   ```
+
+5. **Run.** V2.5 is driven by a YAML config:
+
+   ```bash
+   aibuildai config > task.yaml    # writes a starter config with every field
+   # edit task.yaml: set run.task_name, run.data_root, run.instruction, run.playground_root
+   aibuildai run task.yaml
+   ```
+
+   Other commands: `aibuildai memorize` (summarize past runs into memory), `aibuildai replay <run-dir>` (replay a finished run), `aibuildai --help`.
+
+### V2 (Pro)
+
+1. **Subscribe** to the **Pro** plan at [accounts.aibuildai.io/sign-up](https://accounts.aibuildai.io/sign-up).
+
+2. **Install.**
+
+   ```bash
+   curl -fsSL https://github.com/aibuildai/AI-Build-AI/releases/download/v2.0-latest/aibuildai-linux-x86_64.tar.gz | tar xz && ./aibuildai-linux-x86_64-*/install.sh
+   ```
+
+3. **Log in.**
 
    ```bash
    aibuildai login
+   aibuildai whoami     # should show an active Pro plan
    ```
 
-   This prints a link you can open in your browser to grant permission with your Pro account. To verify your login status, run:
+4. **Set credentials.**
 
    ```bash
-   aibuildai whoami
+   export ANTHROPIC_API_KEY=your-api-key
    ```
 
-   The output should show an active Pro plan.
+5. **Run.** V2 is driven by command-line flags:
 
-### Set up credentials
+   ```bash
+   aibuildai run --task-name <name> --data-dir <path> \
+     --playground-dir <path> --instruction "$(cat task.md)" --no-form
+   ```
 
-```bash
-export ANTHROPIC_API_KEY=your-api-key
-```
+   Or run `aibuildai` with no flags to fill in the parameters in an interactive form.
 
-### Run
+### V1 (free)
 
-**Example task:** Predict the enzyme class of a protein from its amino acid sequence ([Yu et al., *Science* 2023](https://www.science.org/doi/10.1126/science.adf2465)).
+No account or subscription required.
 
-```bash
-git clone https://github.com/aibuildai/AI-Build-AI.git && cd AI-Build-AI
-aibuildai --task-name protein-ec-prediction \
-  --data-dir data/protein-ec-prediction \
-  --playground-dir /path/to/playground \
-  --model claude-opus-4-6 \
-  --max-agent-calls 8 \
-  --run-budget-minutes 60 \
-  --num-candidates 3 \
-  --instruction "$(cat tasks/protein-ec-prediction.md)" \
-  --pipeline-budget-minutes 90 \
-  --no-form
-```
+1. **Install.**
 
-AIBuildAI takes two key inputs: `--data-dir`, the path to the training data for the task, and `--instruction`, a natural-language description of the AI task to solve.
+   ```bash
+   curl -fsSL https://github.com/aibuildai/AI-Build-AI/releases/download/v1.0-latest/aibuildai-linux-x86_64.tar.gz | tar xz && ./aibuildai-linux-x86_64-*/install.sh
+   ```
 
+2. **Set your Anthropic API key.**
 
-**Important:**
+   ```bash
+   export ANTHROPIC_API_KEY=your-api-key
+   ```
 
-Run the command directly in your terminal. Do not wrap the command in a `.sh` or `.bash` script. Running it through a script may cause the TUI (Text User Interface) to crash.
+3. **Run** with command-line flags:
+
+   ```bash
+   aibuildai --task-name <name> --data-dir <path> \
+     --playground-dir <path> --instruction "$(cat task.md)" --no-form
+   ```
+
+   Or run `aibuildai` with no flags to fill in the parameters in an interactive form.
+
+**Important:** run the command directly in your terminal. Do not wrap it in a `.sh`/`.bash` script — running it through a script may cause the TUI (Text User Interface) to crash.
 
 ### Results
-
-#### Output directory
 
 After a run completes, the output directory usually looks like (structure may slightly vary by task):
 
@@ -139,41 +167,15 @@ After a run completes, the output directory usually looks like (structure may sl
 └── progress.pdf         # Visual progress report
 ```
 
-The main outputs of an AIBuildAI run are the model checkpoints and the script `inference.py`, which runs predictions with the final model on any data.
+The main outputs of an AIBuildAI run are the model checkpoints and the script `inference.py`, which runs predictions with the final model on any data. When the task data folder includes unlabeled test inputs, AIBuildAI also writes a predicted-label file `submission.csv`.
 
-#### Evaluation
+### Tasks
 
-In the example protein-ec-prediction task, we provide unlabeled test data in the data folder, so AIBuildAI also generates a predicted-label file `submission.csv`. To evaluate the predictions against ground-truth labels:
-
-```bash
-python scripts/eval_protein_ec.py \
-  --labels data/labels/protein-ec-prediction.csv \
-  --submission /path/to/playground/code/protein-ec-prediction/timestamp/submission.csv
-```
-
-### Other tasks
-
-We provide additional task markdowns in the `tasks/` folder. You can also write your own task markdown and point `--data-dir` to your own dataset.
-
----
-
-### Command line options
-
-To see all available options, run:
+We provide ready-to-run task markdowns and datasets in the `tasks/` folder of this repository. You can also write your own task description and point the run at your own dataset.
 
 ```bash
-aibuildai -h
+git clone https://github.com/aibuildai/AI-Build-AI.git
 ```
-
-### Interactive form mode 
-
-Alternatively, you can run AIBuildAI using the interactive form interface by running without `--no-form`:
-
-```bash
-aibuildai
-```
-
-This will launch a TUI (Text User Interface) where you can fill in the required parameters interactively.
 
 ---
 
@@ -194,5 +196,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
     url={https://arxiv.org/abs/2604.14455}
 }
 ```
-
-
