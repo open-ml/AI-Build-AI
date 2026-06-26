@@ -67,5 +67,5 @@ jobs:
             echo "no change"
           else
             git commit -m "chore: refresh downloads badge"
-            git push
+            git push origin HEAD:main
           fi
