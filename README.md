@@ -57,7 +57,7 @@ There are three versions. **V2.5 (Max)** is the current, most capable version. *
 
 | Version | Plan | To run it |
 |---|---|---|
-| **V2.5 (Max)** — current | Max subscription | `aibuildai login` (Max plan) + an Anthropic API key |
+| **V2.5 (Max)** — current | Max subscription | `aibuildai login` (Max plan) + a model API key (Anthropic or DeepSeek) |
 | **V2 (Pro)** | Pro subscription | `aibuildai login` (Pro plan) + an Anthropic API key |
 | **V1** | free | an Anthropic API key (no account) |
 
@@ -80,11 +80,17 @@ Subscriptions are managed at [accounts.aibuildai.io](https://accounts.aibuildai.
    aibuildai whoami     # should show an active Max plan
    ```
 
-4. **Set your Anthropic API key.**
+4. **Set your model-provider API key.** This is separate from the aibuildai
+   subscription above: the subscription (`aibuildai login`) lets you run the
+   product; this key pays for the AI model calls. aibuildai uses Anthropic
+   (Claude) by default, so set your Anthropic API key:
 
    ```bash
-   export AIBUILDAI_API_KEY=your-api-key
+   export AIBUILDAI_API_KEY=your-anthropic-api-key
    ```
+
+   DeepSeek is also supported — set a `deepseek-*` id in the config's
+   `llm.model` and put your DeepSeek key in the same `AIBUILDAI_API_KEY`.
 
 5. **Run.** V2.5 is driven by a YAML config:
 
